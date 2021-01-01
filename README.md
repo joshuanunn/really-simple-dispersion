@@ -9,7 +9,7 @@ In the live example above, the properties of the industrial source and the weath
 
 ## Comparison to Webassembly (Wasm) version
 
-This project has also been implemented in Wasm (compiled from Go) in order to compare performance. Both codebases have fully working live demos, but remain a work in progress. The code and live demo can be found at [https://joshuanunn.github.io/really-simple-dispersion-wasm](https://joshuanunn.github.io/really-simple-dispersion-wasm).
+This project has also been implemented in Wasm (compiled from Go) in order to compare performance. Both codebases have fully working live demos, but remain a work in progress. The code and live demo can be found at [https://github.com/joshuanunn/really-simple-dispersion-wasm](https://github.com/joshuanunn/really-simple-dispersion-wasm).
 
 At present this JavaScript implementation is approximately twice as fast (in Chrome). To test for yourself, load the live demos, select 100 hours and click the *Simulate* button.
 
