@@ -19,7 +19,7 @@ The plume is visualised by mapping concentrations onto a regular gridded areas, 
 
 NOTE that while this simulation can help with understanding and visualising how Gaussian plume dispersion models work, the ISC-3 model on which it is based has long-since been replaced by modern atmospheric dispersion models such as AERMOD (US) and ADMS (UK).
 
-## Setup and Wasm Compilation
+## Technical details
 Most of the core functionality and program state is encapsulated in an RSDM class. The concentration maps are held in two internal arrays for each plot - one to hold running raw concentrations and another to build a contour map. The default "High" image quality is based on a 500 x 500 element array for the plan view (5km @ 10m pixel spacing) and a 500 x 200 element array for the height profile (5 km @ 10m horizontal spacing and 1km @ 5m vertical spacing). These are converted to png images and rendered in the browser.
 
 ## Tests
