@@ -7,6 +7,12 @@ An interactive atmospheric dispersion model for simulation and visualisation of 
 
 In the live example above, the properties of the industrial source and the weather conditions can be tweaked to see the effect on dispersion. Each change will plot average concentrations for a single hour. The *Simulate* button can be used to run a simulation for the specified number of hours of random weather conditions, which builds up a picture of how concentrations may look time-averaged over a longer period with varied conditions.
 
+## Comparison to Webassembly (Wasm) version
+
+This project has also been implemented in Wasm (compiled from Go) in order to compare performance. Both codebases have fully working live demos, but remain a work in progress. The code and live demo can be found at [https://joshuanunn.github.io/really-simple-dispersion-wasm](https://joshuanunn.github.io/really-simple-dispersion-wasm).
+
+At present this JavaScript implementation is approximately twice as fast (in Chrome). To test for yourself, load the live demos, select 100 hours and click the *Simulate* button.
+
 ## Background
 
 This is Gaussian based dispersion model, which is a mathematical simulation of how air pollution disperses in the atmosphere. The form of the plume exiting a stack at a given height is derived from the overall Gaussian plume equation below, which describes the pollutant concentration at a single position (x,y,z) in a plume referenced coordinate system. The sigma plume formulas σ<sub>y</sub> and σ<sub>z</sub> are power-law or logarithmic functions which vary with meteorological conditions. Briggs plume rise formulas are used to add an additional plume rise due to the buoyancy or momentum of the plume. A typical schematic of a plume is shown below (centre).
