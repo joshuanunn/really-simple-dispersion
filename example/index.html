@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>really-simple-dispersion</title>
+    <style>
+        * {
+            font-family: Tahoma, Geneva, sans-serif;
+            font-size: 15px;
+        }
+        .panel-item {
+            display:flex; 
+            align-items:center; 
+            justify-content: flex-start;
+        }
+        .panel-item label { flex:0; flex-basis: 200px; }
+        .panel-item input { flex-grow:0; }
+        .panel-item output { width:20px; }
+        .control-panel {
+            position:fixed;
+            width:400px;
+            padding:10px;
+            background: rgba(253, 217, 35, 0.2);
+            color:#000;
+            top:10px;right:10px;
+        }
+        .info-panel {
+            position:fixed;
+            width:400px;
+            padding:10px;
+            background: rgba(253, 217, 35, 0.2);
+            color:#000;
+            bottom:10px;right:10px;
+        }
+        .imgbox {
+            display: grid;
+            height: 100%;
+        }
+        .img {
+			min-width: 502px;
+            max-width: 100%;
+            max-height: 100vh;
+			border: 1px solid black;
+			margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="control-panel">
+        <div class="panel-item"><b>Industrial Stack controls</b></div>
+        
+        <div class="panel-item">
+            <label for="elevation">- Source Height (m):</label>
+            <input id="elevation" type="range" min="1" max="500" value="50" step="1" oninput="elevation_label.value=elevation.value">
+            <output for="elevation" id="elevation_label">50</output>
+        </div>
+
+        <div class="panel-item">
+            <label for="diameter">- Source Diameter (m):</label>
+            <input id="diameter" type="range" min="0.1" max="10.0" value="0.5" step="0.1" oninput="diameter_label.value=diameter.value">
+            <output for="diameter" id="diameter_label">0.5</output>
+        </div>
+
+        <div class="panel-item">
+            <label for="velocity">- Source Velocity (m/s):</label>
+            <input id="velocity" type="range" min="0.1" max="100.0" value="10.0" step="0.1" oninput="velocity_label.value=velocity.value">
+            <output for="velocity" id="velocity_label">10.0</output>
+        </div>
+
+        <div class="panel-item">
+            <label for="temp">- Source Temperature (C):</label>
+            <input id="temp" type="range" min="15" max="500" value="60" step="1" oninput="temp_label.value=temp.value">
+            <output for="temp" id="temp_label">60</output>
+        </div>
+
+        <div class="panel-item"><b>Atmosphere / Environment controls</b></div>
+        
+        <div class="panel-item">
+            <label for="wspd">- Wind Speed (m/s):</label>
+            <input id="wspd" type="range" min="1" max="50" value="5" step="1" oninput="wspd_label.value=wspd.value">
+            <output for="wspd" id="wspd_label">5</output>
+        </div>
+
+        <div class="panel-item">
+            <label for="wdir">- Wind Direction (deg):</label>
+            <input id="wdir" type="range" min="0" max="359" value="235" step="1" oninput="wdir_label.value=wdir.value">
+            <output for="wdir" id="wdir_label">235</output>
+        </div>
+        
+        <div class="panel-item">
+            <label for="pgcat">- Vertical stability:</label>
+            <select name="pgcat" id="pgcat">
+                <option value="A">Very unstable</option>
+                <option value="B">Moderately unstable</option>
+                <option value="C" selected="selected">Slightly unstable</option>
+                <option value="D">Neutral</option>
+                <option value="E">Moderately stable</option>
+                <option value="F">Very stable</option>
+            </select>
+        </div>
+
+        <div class="panel-item">
+            <label for="roughness">- Roughness:</label>
+            <select name="roughness" id="roughness">
+                <option value="urban" selected="selected">Urban</option>
+                <option value="rural">Rural</option>
+            </select>
+        </div>
+
+        <div class="panel-item"><b>Other controls</b></div>
+
+        <div class="panel-item">
+            <label for="grid">- Image Quality:</label>
+            <select name="grid" id="grid">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High" selected="selected">High</option>
+            </select>
+        </div>
+
+        <div class="panel-item">
+            <label for="simh">- Random simulation:</label>
+            <select name="simh" id="simh">
+                <option value="10">10 hours</option>
+                <option value="20" selected="selected">20 hours</option>
+                <option value="50">50 hours</option>
+                <option value="100">100 hours</option>
+            </select>
+            <button id="simulate" onmousedown="updateStatus()">Simulate</button>
+        </div>
+
+        <div class="panel-item"><b>Status</b></div>
+        <div id="status"></div>
+    </div>
+
+    <div class="info-panel">
+        <b>Really Simple Dispersion</b><br>
+        Interactive atmospheric dispersion model simulation for industrial plant emissions, over 1-100 hours of operation.<br><br>
+
+        Plan view (top) - ground level emissions over a 5km x 5km area. Side elevation (bottom) - average emissions up to 1km altitude. Shown on 
+        a contoured log scale.<br><br>
+        
+        Written in JavaScript, more information and source code at: 
+        <a href="https://github.com/joshuanunn/really-simple-dispersion">https://github.com/joshuanunn/really-simple-dispersion</a>
+    </div>
+
+    <div class="imgbox">
+        <div>
+            <image id="rImg" class="img" />
+        </div>
+        <div>
+            <image id="hImg" class="img" />
+        </div>
+    </div>
+    
+    <script src="../rsdm/preprocess.js"></script>
+    <script src="../rsdm/disperse.js"></script>
+    <script src="../rsdm/visualise.js"></script>
+    <script src="../rsdm/rsdm.js"></script>
+    
+    <script>
+        
+        rsdm = new RSDM();
+        
+        document.getElementById('status').innerText = "Ready.";
+        
+        function updateStatus() {
+            let hours = document.getElementById('simh').value;
+            let message = "Running model for " + hours + " hours, please wait...";
+            document.getElementById('status').innerText = message;
+        }
+
+        // Setup callbacks
+        document.getElementById("elevation").addEventListener("change", getSourceValue, false);
+        document.getElementById("diameter").addEventListener("change", getSourceValue, false);
+        document.getElementById("velocity").addEventListener("change", getSourceValue, false);
+        document.getElementById("temp").addEventListener("change", getSourceValue, false);
+        document.getElementById("wdir").addEventListener("change", getModelValue, false);
+        document.getElementById("wspd").addEventListener("change", getModelValue, false);
+        document.getElementById("roughness").addEventListener("change", getModelDesc, false);
+        document.getElementById("pgcat").addEventListener("change", getModelDesc, false);
+        document.getElementById("grid").addEventListener("change", getGridDesc, false);
+        document.getElementById("simulate").addEventListener("mouseup", runModel, false);
+
+        function getSourceValue() {
+            rsdm.sourceAdj(this.id, this.value);
+        }
+
+        function getModelValue() {
+            rsdm.modelAdj(this.id, this.value);
+        }
+
+        function getModelDesc() {
+            rsdm.modelAdjDesc(this.id, this.value);
+        }
+
+        function getGridDesc() {
+            rsdm.gridAdjDesc(this.id, this.value);
+        }
+
+        function runModel() {
+            let hours = document.getElementById('simh').value;
+            rsdm.simulate(hours);
+        }
+
+        // Initial page draw
+        rsdm.runModel(1);
+        rsdm.updateImage();
+
+    </script>
+</body>
+</html>
