@@ -106,14 +106,14 @@ function testGridSetup() {
 function testConvertCoords() {
 	const s = new Source(-2.0, -3.0, 50.0, 0.5, 10.0, 60.0, 1.0);
 	
-	const sinPHI = Math.sin(200.0);
-	const cosPHI = Math.cos(200.0);
+	const sinPHI = Math.sin(200.0 * Math.PI / 180);
+	const cosPHI = Math.cos(200.0 * Math.PI / 180);
 	let [x, y] = s.windComponents(10.0, 10.0, sinPHI, cosPHI);
 
-	const xRef = 0.004146127791;
+	const xRef = 0.016320245790;
 	testApproxEqual(x, xRef);
 
-	const yRef = 17.199116963866;
+	const yRef = -6.8300495861972;
 	testApproxEqual(y, yRef);
 }
 
