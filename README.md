@@ -3,15 +3,13 @@
 ## Introduction
 An interactive atmospheric dispersion model for simulation and visualisation of industrial plant emissions. Written in JavaScript.
 
-**LIVE EXAMPLE** served from GitHub repo: [https://joshuanunn.github.io/really-simple-dispersion/example](https://joshuanunn.github.io/really-simple-dispersion/example)
+**LIVE EXAMPLE** can be found here: [https://joshuanunn.co.uk/really-simple-dispersion/example](https://joshuanunn.co.uk/really-simple-dispersion/example)
 
 In the live example above, the properties of the industrial source and the weather conditions can be tweaked to see the effect on dispersion. Each change will plot average concentrations for a single hour. The *Simulate* button can be used to run a simulation for the specified number of hours of random weather conditions, which builds up a picture of how concentrations may look time-averaged over a longer period with varied conditions.
 
 ## Comparison to Webassembly (Wasm) version
 
-This project has also been implemented in Wasm (compiled from Go) in order to compare performance. Both codebases have fully working live demos, but remain a work in progress. The code and live demo can be found at [https://github.com/joshuanunn/really-simple-dispersion-wasm](https://github.com/joshuanunn/really-simple-dispersion-wasm).
-
-At present this JavaScript implementation is approximately twice as fast (in Chrome). To test for yourself, load the live demos, select 100 hours and click the *Simulate* button.
+This project has also been implemented in Wasm (compiled from Rust) in order to compare performance, and will be published soon.
 
 ## Background
 
@@ -29,8 +27,8 @@ NOTE that while this simulation can help with understanding and visualising how 
 Most of the core functionality and program state is encapsulated in an RSDM class. The concentration maps are held in two internal arrays for each plot - one to hold running raw concentrations and another to build a contour map. The default "High" image quality is based on a 500 x 500 element array for the plan view (5km @ 10m pixel spacing) and a 500 x 200 element array for the height profile (5 km @ 10m horizontal spacing and 1km @ 5m vertical spacing). These are converted to png images and rendered in the browser.
 
 ## Tests
-Whilst not the best way to do it, unit tests can be run by simply loading the following page in a browser and checking the console output (refresh page with console open):
-[https://joshuanunn.github.io/really-simple-dispersion/example/runtests.html](https://joshuanunn.github.io/really-simple-dispersion/example/runtests.html)
+Simple unit tests can be run by simply loading the following page in a browser and checking the console output (refresh page with console open):
+[https://joshuanunn.co.uk/really-simple-dispersion/example/runtests.html](https://joshuanunn.co.uk/really-simple-dispersion/example/runtests.html)
 
 ## License
 This software is released under the MIT license [MIT](LICENSE).
