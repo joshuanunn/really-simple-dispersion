@@ -9,7 +9,7 @@ In the live example above, the properties of the industrial source and the weath
 
 ## Comparison to Webassembly (Wasm) version
 
-This project has also been implemented in Wasm (compiled from Rust) in order to compare performance, and will be published soon.
+This project has also been implemented in Wasm (compiled from Rust) in order to compare performance - see [https://github.com/joshuanunn/really-simple-dispersion-wasm](https://github.com/joshuanunn/really-simple-dispersion-wasm) for more information.
 
 ## Background
 
