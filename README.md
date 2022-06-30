@@ -3,7 +3,7 @@
 ## Introduction
 An interactive atmospheric dispersion model for simulation and visualisation of industrial plant emissions. Written in JavaScript.
 
-**LIVE EXAMPLE** can be found here: [https://joshuanunn.co.uk/really-simple-dispersion/example](https://joshuanunn.co.uk/really-simple-dispersion/example)
+**LIVE EXAMPLE** can be found here: [https://joshua.nu/really-simple-dispersion/example](https://joshua.nu/really-simple-dispersion/example)
 
 In the live example above, the properties of the industrial source and the weather conditions can be tweaked to see the effect on dispersion. Each change will plot average concentrations for a single hour. The *Simulate* button can be used to run a simulation for the specified number of hours of random weather conditions, which builds up a picture of how concentrations may look time-averaged over a longer period with varied conditions.
 
@@ -28,7 +28,7 @@ Most of the core functionality and program state is encapsulated in an RSDM clas
 
 ## Tests
 Simple unit tests can be run by simply loading the following page in a browser and checking the console output (refresh page with console open):
-[https://joshuanunn.co.uk/really-simple-dispersion/example/runtests.html](https://joshuanunn.co.uk/really-simple-dispersion/example/runtests.html)
+[https://joshua.nu/really-simple-dispersion/example/runtests.html](https://joshua.nu/really-simple-dispersion/example/runtests.html)
 
 ## License
 This software is released under the MIT license [MIT](LICENSE).
